@@ -45,12 +45,12 @@
           </div>
         </div>
         <span class="p-float-label">
-          <Textarea v-model="value" rows="2" cols="50" />
+          <Textarea v-model="value" :rows="isMobile ? 5 : 2" :cols="isMobile ? 33 : 50" />
           <label>Alte detalii</label>
         </span>
         <Button label="Trimite" />
       </div>
-      <div class="home-image-container">
+      <div class="home-image-container" v-if="!isMobile">
         <div
           class="home-image-content"
           :class="{ 'home-image-content-active': textLoaded }"
@@ -133,7 +133,7 @@
 <script setup>
 import InputText from "primevue/inputtext";
 import Slider from "primevue/slider";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import Dropdown from "primevue/dropdown";
 import Textarea from "primevue/textarea";
 import Button from "primevue/button";
@@ -184,6 +184,19 @@ let formValues = {
   ],
   selectedTerm: "",
 };
+
+let isMobile = computed(() => {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 
 onMounted(() => {
   setTimeout(() => {

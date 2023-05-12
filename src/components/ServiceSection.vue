@@ -69,7 +69,7 @@ import Icons from "../assets/modules/Icons";
 import SvgIcon from "./SvgIcon.vue";
 </script>
 <style>
-.service{
+.service {
   padding: 5rem 0;
 }
 .service-type h1 {
@@ -143,5 +143,23 @@ import SvgIcon from "./SvgIcon.vue";
 .service-card-content {
   text-align: justify;
   text-justify: distribute;
+}
+
+@media screen and (max-width: 414px) and (orientation: portrait) {
+  .service-card-container {
+    flex-flow: column wrap;
+  }
+
+  .service-card {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 915px) and (orientation: landscape){
+  .service-card {
+    width: 40%;
+    margin: auto;
+  }
 }
 </style>

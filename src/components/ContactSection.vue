@@ -1,7 +1,8 @@
 <template>
   <div class="contact-wrapper">
-    <div class="contact-top-shadow"></div>
-    <div class="contact-image-wrapper">
+    <h2 v-if="isMobile">Nu ezita sa ne contactezi</h2>
+    <div class="contact-top-shadow" v-if="!isMobile"></div>
+    <div class="contact-image-wrapper" v-if="!isMobile">
       <div class="contact-image"></div>
       <div class="contact-image-content">
         <div class="contact-supratitle">Ai intrebari sau nelamuriri?</div>
@@ -36,15 +37,29 @@
   </div>
 </template>
 <script setup>
+import { computed } from "vue";
 import Icons from "../assets/modules/Icons";
 import SvgIcon from "./SvgIcon.vue";
+
+let isMobile = computed(() => {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
 </script>
 <style>
 .home-contact {
   width: 100%;
   height: 100vh;
-  background: var(--accent);
-  /* background: linear-gradient(var(--accent), var(--dark)); */
+  /* background: var(--accent); */
+  background: linear-gradient(var(--accent), var(--dark));
 }
 .home-contact {
   position: relative;
@@ -78,7 +93,7 @@ import SvgIcon from "./SvgIcon.vue";
 .contact-container-bg {
   width: 100%;
   height: 100%;
-  background: var(--accent);
+  background: linear-gradient(var(--accent), var(--dark));
   clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
 }
 
@@ -170,5 +185,44 @@ import SvgIcon from "./SvgIcon.vue";
 .contact-card-text {
   width: 100%;
   text-align: center;
+}
+
+@media screen and (max-width: 414px) and (orientation: portrait), screen and (max-width: 915px) and (orientation: landscape) {
+
+  .home-contact{
+    height: 100vh !important;
+    display: flex;
+  }
+
+  .contact-wrapper h2{
+    width: 135%;
+    text-align: center;
+  }
+
+  .contact-container-bg{
+    height: initial;
+  }
+
+  .contact-container{
+    width: 100%;
+  }
+  .contact-container-bg{
+    clip-path: none !important;
+  }
+
+  .contact-card{
+    width: 170px;
+    height: 200px;
+    padding-bottom: 1rem;
+  }
+
+  .contact-card-wrapper{
+    width: 90%;
+    gap: 1rem;
+  }
+
+  .contact-card-text{
+    font-size: 0.8rem;
+  }
 }
 </style>

@@ -1,0 +1,62 @@
+.mobile-header {
+    width: 100%;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+    box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu-button{
+    width: 40px;
+    height: 40px;
+    fill: var(--light);
+    margin-left: 10px;
+}
+
+.mobile-logo-container{
+    background: var(--main);
+    display: flex;
+    padding: 0.3rem 0.2rem 0.3rem 0.4rem;
+    margin: 0.2rem 15% 0.2rem 35%;
+    border-radius: 3px;
+}
+
+.sidebar-container{
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.sidebar-container ul{
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+.sidebar-container ul li{
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    border-left: 5px solid transparent;
+}
+.active-nav{
+    border-left: 5px solid var(--main) !important;
+}
+.sidebar-container ul a{
+    text-decoration: none;
+    color: var(--main);
+}
+
+.sidebar-logo-container{
+    background: var(--main);
+    display: flex;
+    padding: 0.3rem 0.2rem 0.3rem 0.4rem;
+    border-radius: 3px;
+}
+
+@media screen and (max-width: 915px) and (orientation: landscape) {
+    .mobile-logo-container{
+        margin-left: 40%;      
+    }
+}

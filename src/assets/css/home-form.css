@@ -101,74 +101,61 @@
     opacity: 1;
 }
 
-@media screen and (max-width: 414px) and (orientation: portrait) {
+@media screen and (max-width: 414px) and (orientation: portrait), screen and (max-width: 915px) and (orientation: landscape) {
     .home {
-        background-image: url("../assets/img/solar-panels-solution.jpg");
         display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100vw;
-        height: 100vh;
-        background-position: center;
-        background-size: cover;
-        position: absolute;
-        top: 0;
-        z-index: -1;
-        margin-top: 66px;
-        padding: 1rem 0.5rem;
+        flex-flow: column wrap;
+    }
+
+    .home-form-wrapper {
+        width: 100%;
+        height: fit-content !important;
+        padding: 0 !important;
+        padding: 3rem 0 !important;
+    }
+    .home-form-wrapper .p-button{
+        width: 90%;
+        margin: 1rem 0;
     }
 
     .home-form {
-        padding: 1rem;
-        width: 95%;
-        background: var(--light);
-        color: var(--dark);
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
+        width: 90% !important;
+        margin: auto;
+        gap: 0.5rem !important;
+        padding: 0 !important;
+        display: flex !important;
+        flex-flow: column wrap !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
     }
 
-    .input-wrapper {
-        display: flex;
-        flex-flow: column wrap;
-        color: var(--accent);
+    .home-form h1 {
+        font-size: 2rem;
     }
 
-    .personal-content {
-        border-bottom: 1px solid var(--accent);
-        padding-bottom: 2rem;
+    .personal-content{
+        width: 90%;
+        flex-flow: column wrap !important;
     }
 
-    .project-content {
-        margin-top: 2rem;
+    .project-content{
+        width: 90% !important;
+    }
+    .project-content .p-inputtext{
+        width: 100%;
     }
 
-    .budget-wrapper {
-        margin-top: 1rem;
+    .details-content{
+        width: 90%;
+        flex-flow: column wrap !important;
     }
-
-    .budget-wrapper label {
-        color: var(--accent);
-    }
-
-    .budget-wrapper .p-inputtext {
-        width: 80px;
-    }
-
-    .personal-content,
-    .project-content {
-        display: flex;
-        flex-flow: column wrap;
-        justify-content: center;
-        gap: 1rem;
+    .p-inputtextarea{
+        width: 100% !important;
     }
 }
 
 @media screen and (max-width: 915px) and (orientation: landscape) {
-    .home {
-        margin-top: 66px;
-        padding: 1rem 0.5rem;
-    }
-
+    
     .home-form {
         padding: 1rem;
         width: 60%;
