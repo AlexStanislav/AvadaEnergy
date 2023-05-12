@@ -69,7 +69,6 @@
     <main>
       <router-view />
     </main>
-    <footer></footer>
     <ScrollTop />
   </div>
   <div class="preload" v-if="!store.hasLoaded">
