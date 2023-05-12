@@ -94,7 +94,7 @@ import Sidebar from "primevue/sidebar";
 const store = useAppStore();
 let preloadTitle = ref(null);
 let isScrolled = ref(false);
-let sidebarVisible = ref(true);
+let sidebarVisible = ref(false);
 
 let isMobile = computed(() => {
   if (
