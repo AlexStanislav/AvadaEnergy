@@ -24,7 +24,7 @@
             :viewBox="`0 0 40 40`"
           />
         </div>
-        <ul>
+        <ul @click="sidebarVisible = false">
           <a href="#home"><li @click="toggleNav" class="mobile-nav">Acasa</li></a>
           <a href="#services"><li @click="toggleNav" class="mobile-nav">Servicii</li></a>
           <a href="#contact"><li @click="toggleNav" class="mobile-nav">Contact</li></a>

@@ -45,10 +45,14 @@
           </div>
         </div>
         <span class="p-float-label">
-          <Textarea v-model="value" :rows="isMobile ? 5 : 2" :cols="isMobile ? 33 : 50" />
+          <Textarea
+            v-model="textAreaValue"
+            :rows="isMobile ? 5 : 2"
+            :cols="isMobile ? 33 : 50"
+          />
           <label>Alte detalii</label>
         </span>
-        <Button label="Trimite" />
+        <Button label="Trimite" @click="sendMail()" />
       </div>
       <div class="home-image-container" v-if="!isMobile">
         <div
@@ -104,10 +108,7 @@
         >
           <defs>
             <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop
-                stop-color="rgba(62, 243, 151.018, 1)"
-                offset="0%"
-              ></stop>
+              <stop stop-color="rgba(62, 243, 151.018, 1)" offset="0%"></stop>
               <stop
                 stop-color="rgba(141.578, 121.023, 75.586, 1)"
                 offset="100%"
@@ -128,6 +129,7 @@
         <ContactSection />
       </DeferredContent>
     </div>
+    <Toast />
   </div>
 </template>
 <script setup>
@@ -140,12 +142,16 @@ import Button from "primevue/button";
 import ServiceSection from "../components/ServiceSection.vue";
 import ContactSection from "../components/ContactSection.vue";
 import DeferredContent from "primevue/deferredcontent";
-import SvgIcon from "../components/SvgIcon.vue";
-import Icons from "../assets/modules/Icons";
+import Toast from "primevue/toast";
+import axios from "axios";
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 
 let budget = ref(1000);
 let terms = ref(["Imediat", "3 luni", "6 luni", "9 luni", "1 an"]);
 let textLoaded = ref(false);
+let textAreaValue = ref("");
 let formValues = {
   personalInfo: [
     {
@@ -197,12 +203,138 @@ let isMobile = computed(() => {
   }
 });
 
-
 onMounted(() => {
   setTimeout(() => {
     textLoaded.value = true;
   }, 1000);
 });
+
+function isFormDataEmpty(formData) {
+  const entries = formData.entries();
+  return entries.next().done; // Returns true if there are no entries
+}
+
+function sendMail() {
+  let form = new FormData();
+
+  if (
+    formValues.personalInfo[0].value != "" &&
+    formValues.personalInfo[1].value != "" &&
+    formValues.personalInfo[2].value != "" &&
+    formValues.personalInfo[3].value != ""
+  ) {
+    form.append(
+      "first_name",
+      formValues.personalInfo[0].value.replace(/(<([^>]+)>)/gi, "")
+    );
+    form.append(
+      "email",
+      formValues.personalInfo[2].value.replace(/(<([^>]+)>)/gi, "")
+    );
+    form.append(
+      "phone_number",
+      formValues.personalInfo[3].value.replace(/(<([^>]+)>)/gi, "")
+    );
+    form.append(
+      "address",
+      formValues.projectInfo[0].value.replace(/(<([^>]+)>)/gi, "")
+    );
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Eroare",
+      detail: "Va rugam completati datele personale",
+      life: 3000,
+    });
+  }
+
+  if (
+    formValues.projectInfo[1].value != "" &&
+    formValues.projectInfo[2].value != ""
+  ) {
+    form.append(
+      "city",
+      formValues.projectInfo[1].value.replace(/(<([^>]+)>)/gi, "")
+    );
+    form.append(
+      "state",
+      formValues.projectInfo[2].value.replace(/(<([^>]+)>)/gi, "")
+    );
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Eroare",
+      detail: "Va un judet si o localitate",
+      life: 3000,
+    });
+  }
+
+  if (
+    formValues.projectInfo[0].value != "" &&
+    formValues.projectInfo[1].value != ""
+  ) {
+    form.append(
+      "address",
+      formValues.projectInfo[0].value.replace(/(<([^>]+)>)/gi, "")
+    );
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Eroare",
+      detail: "Va rugam introduceti o adresa",
+      life: 3000,
+    });
+  }
+
+  if (formValues.selectedTerm != "") {
+    form.append(
+      "project_term",
+      formValues.selectedTerm.replace(/(<([^>]+)>)/gi, "")
+    );
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Eroare",
+      detail: "Va rugam selectati un termen",
+      life: 3000,
+    });
+  }
+
+  console.log(form);
+  if (!isFormDataEmpty(form)) {
+    form.append("project_budget", budget.value);
+    form.append(
+      "project_description",
+      textAreaValue.value.replace(/(<([^>]+)>)/gi, "")
+    );
+    // axios
+    //   .post("https://fotovoltaiceongrid.ro/wp-admin/admin-ajax.php", form, {
+    //     headers: {
+    //       "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     toast.add({ severity: 'error', summary: 'Erroare', detail: 'Ceva nu a mers, va rugam mai incercati odata.', life: 3000 });
+    //     console.error(error);
+    //   });
+    toast.add({
+      severity: "success",
+      summary: "Mail trimis",
+      detail: "Mail-ul a fost trimis cu succes!",
+      life: 3000,
+    });
+  } else {
+    toast.add({
+      severity: "error",
+      summary: "Eroare",
+      detail: "Va rugam completati datele",
+      life: 3000,
+    });
+  }
+}
 </script>
 <style>
 @import "../assets/css/home-form.css";

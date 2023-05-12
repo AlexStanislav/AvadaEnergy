@@ -6,7 +6,9 @@
       <div class="contact-image"></div>
       <div class="contact-image-content">
         <div class="contact-supratitle">Ai intrebari sau nelamuriri?</div>
-        <div class="contact-title">Nu ezita sa ne contactezi pe social media, mail sau telefon!</div>
+        <div class="contact-title">
+          Nu ezita sa ne contactezi pe social media, mail sau telefon!
+        </div>
       </div>
     </div>
     <div class="contact-container">
@@ -52,7 +54,6 @@ let isMobile = computed(() => {
     return false;
   }
 });
-
 </script>
 <style>
 .home-contact {
@@ -187,42 +188,52 @@ let isMobile = computed(() => {
   text-align: center;
 }
 
-@media screen and (max-width: 414px) and (orientation: portrait), screen and (max-width: 915px) and (orientation: landscape) {
 
-  .home-contact{
+@media screen and (max-width: 414px) and (orientation: portrait),
+  screen and (max-width: 915px) and (orientation: landscape) {
+  .home-contact {
     height: 100vh !important;
     display: flex;
   }
 
-  .contact-wrapper h2{
+  .contact-wrapper h2 {
     width: 135%;
     text-align: center;
   }
 
-  .contact-container-bg{
+  .contact-container-bg {
     height: initial;
   }
 
-  .contact-container{
+  .contact-container {
     width: 100%;
   }
-  .contact-container-bg{
+  .contact-container-bg {
     clip-path: none !important;
   }
 
-  .contact-card{
+  .contact-card {
     width: 170px;
     height: 200px;
     padding-bottom: 1rem;
   }
 
-  .contact-card-wrapper{
+  .contact-card-wrapper {
     width: 90%;
     gap: 1rem;
   }
 
-  .contact-card-text{
+  .contact-card-text {
     font-size: 0.8rem;
+  }
+}
+
+
+@media screen and (max-width: 384px) and (orientation: portrait) {
+  .contact-card {
+    width: 160px;
+    height: 200px;
+    padding-bottom: 1rem;
   }
 }
 </style>
