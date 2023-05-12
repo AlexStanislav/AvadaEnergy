@@ -1,0 +1,54 @@
+.preload {
+    height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background: var(--dark);
+}
+
+
+.preload-logo-container {
+    width: 70px;
+    height: 70px;
+    margin-top: 0.5rem;
+    background: var(--accent);
+    padding: 0.2rem 0.8rem;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    animation: showLogo 1s ease-in-out;
+}
+
+.preload-logo {
+    opacity: 0;
+    fill: var(--light);
+    margin-left: 0.2rem;
+    transition: all 0.5s ease-in-out;
+  filter: drop-shadow(1px 1px 1px var(--dark));
+}
+
+.preload-logo-loaded {
+    opacity: 1 !important;
+    fill: var(--highlight) !important;
+}
+
+.preload-logo-title {
+    font-family: "Poppins Semi Bold Italic", sans-serif;
+    margin-top: 0.2rem;
+    color: var(--highlight);
+    font-size: 2rem;
+    opacity: 0;
+    text-shadow: 1px 1px 1px var(--dark);
+    transition: all 0.5s ease-in-out;
+}
+
+@keyframes showLogo {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
