@@ -228,6 +228,25 @@ let isMobile = computed(() => {
   }
 }
 
+@media screen and (max-width: 1366px){
+  .contact-card-wrapper {
+    gap: 1rem;
+    top: 10%;
+  }
+  .contact-card{
+    width: 200px;
+    height: 250px;
+    padding-bottom: 1rem;
+  }
+}
+@media screen and (max-width: 1024px){
+  .contact-supratitle{
+    font-size: 1.5rem;
+  }
+  .contact-title{
+    font-size: 2.3rem;
+  }
+}
 
 @media screen and (max-width: 384px) and (orientation: portrait) {
   .contact-card {

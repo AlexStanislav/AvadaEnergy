@@ -101,6 +101,20 @@
     opacity: 1;
 }
 
+
+@media screen and (max-width: 1366px) {
+    .home-form{
+        padding: 1rem !important;
+        gap: 0.5rem !important;
+        margin-top: 4rem;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .home-form-wrapper {
+        justify-content: center !important;
+    }
+}
+
 @media screen and (max-width: 414px) and (orientation: portrait), screen and (max-width: 915px) and (orientation: landscape) {
     .home {
         display: flex;

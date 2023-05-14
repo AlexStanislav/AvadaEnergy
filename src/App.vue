@@ -167,7 +167,7 @@ function toggleNav(event) {
   position: fixed;
   top: 0;
   left: 0;
-  margin: 0;
+  margin: 0 !important;
 }
 
 .scrolled-header .header-background {
@@ -290,5 +290,15 @@ function toggleNav(event) {
   margin-top: 0.2rem;
   font-size: 1.5rem;
   color: var(--main);
+}
+
+
+@media screen and (max-width: 1366px) {
+  .header-logo-container{
+    top: 0.5rem;
+  }
+  .desktop-header{
+    margin: 0.5rem;
+  }
 }
 </style>

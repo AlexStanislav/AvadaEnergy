@@ -145,6 +145,20 @@ import SvgIcon from "./SvgIcon.vue";
   text-justify: distribute;
 }
 
+
+@media screen and (max-width: 1366px) {
+  .service-card {
+    width: 26%;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .service-card {
+    width: 35%;
+  }
+}
+
 @media screen and (max-width: 414px) and (orientation: portrait) {
   .service-card-container {
     flex-flow: column wrap;
