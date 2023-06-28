@@ -1,58 +1,21 @@
 <template>
   <div class="home">
-    <div id="home" class="home-form-wrapper">
-      <div class="home-form">
-        <h1>Solicita o oferta estimativa</h1>
-        <div class="personal-content">
-          <InputText
-            v-for="(formInput, index) of formValues.personalInfo"
-            :key="index"
-            :id="formInput.label"
-            v-model="formInput.value"
-            :placeholder="formInput.label"
-          />
-        </div>
-        <div class="project-content">
-          <InputText
-            v-for="(formInput, index) of formValues.projectInfo"
-            :key="index"
-            :class="formInput.class"
-            :id="formInput.label"
-            v-model="formInput.value"
-            :placeholder="formInput.label"
-          />
-        </div>
-        <div class="details-content">
-          <div class="budget-wrapper">
-            <label for="budget-input">Buget - lei</label>
-            <div class="input-wrapper-budget">
-              <InputText
-                id="budget-input"
-                v-model.number="budget"
-                class="w-full"
-              />
-              <Slider v-model="budget" :min="1000" :max="10000" />
-            </div>
+    <div id="home" class="home-wrapper">
+      <div class="home-text">
+        <h2>Lăsați Soarele să vă plătească facturile!</h2>
+        <h1>
+          Treceți la solar și începeți să câștigați bani din excesul de energie!
+        </h1>
+        <div class="cta-container">
+          <div class="cta-card cta-services" @click="goToSection('/servicii')">
+            Alege instalația potrivită pentru tine!
+            <img class="cta-card-image" src="../assets/img/energy.svg">
           </div>
-          <div class="term-wrapper">
-            <label for="term-input">Termeni instalare</label>
-            <Dropdown
-              class="term-select"
-              :options="terms"
-              v-model="formValues.selectedTerm"
-              placeholder="Alege termen"
-            />
+          <div class="cta-card cta-contact" @click="goToSection('/contact')">
+            Contactati-ne pentru o oferta estimativa.
+            <svg-icon class="cta-card-image" :iconPath="Icons.mailIcon"/>
           </div>
         </div>
-        <span class="p-float-label">
-          <Textarea
-            v-model="textAreaValue"
-            :rows="isMobile ? 5 : 2"
-            :cols="isMobile ? 33 : 50"
-          />
-          <label>Alte detalii</label>
-        </span>
-        <Button label="Trimite" @click="sendMail()" />
       </div>
       <div class="home-image-container" v-if="!isMobile">
         <div
@@ -68,128 +31,15 @@
         />
       </div>
     </div>
-    <div class="service-type">
-      <img
-        class="service-bg"
-        src="../assets/img/american-public-power-association-XGAZzyLzn18-unsplash.jpg"
-      />
-      <div class="separator-container">
-        <svg
-          id="wave"
-          style="transform: rotate(180deg); transition: 0.3s"
-          viewBox="0 0 1440 130"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop stop-color="var(--accent)" offset="0%"></stop>
-              <stop stop-color="var(--accent)" offset="100%"></stop>
-            </linearGradient>
-          </defs>
-          <path
-            style="transform: translate(0, 0px); opacity: 1"
-            fill="url(#sw-gradient-0)"
-            d="M0,91L480,0L960,91L1440,26L1920,39L2400,104L2880,78L3360,39L3840,0L4320,104L4800,39L5280,39L5760,78L6240,26L6720,65L7200,78L7680,78L8160,104L8640,91L9120,13L9600,78L10080,65L10560,104L11040,104L11520,13L11520,130L11040,130L10560,130L10080,130L9600,130L9120,130L8640,130L8160,130L7680,130L7200,130L6720,130L6240,130L5760,130L5280,130L4800,130L4320,130L3840,130L3360,130L2880,130L2400,130L1920,130L1440,130L960,130L480,130L0,130Z"
-          ></path>
-        </svg>
-        <!-- <svg-icon class="wave-separator" :iconPath="Icons.waveTop" viewBox="0 0 500 150"/> -->
-      </div>
-      <DeferredContent>
-        <ServiceSection />
-      </DeferredContent>
-      <div class="separator-container-bottom">
-        <svg
-          id="wave"
-          style="transform: rotate(0deg); transition: 0.3s"
-          viewBox="0 0 1440 130"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0">
-              <stop stop-color="rgba(62, 243, 151.018, 1)" offset="0%"></stop>
-              <stop
-                stop-color="rgba(141.578, 121.023, 75.586, 1)"
-                offset="100%"
-              ></stop>
-            </linearGradient>
-          </defs>
-          <path
-            style="transform: translate(0, 0px); opacity: 1"
-            fill="url(#sw-gradient-0)"
-            d="M0,91L480,0L960,91L1440,26L1920,39L2400,104L2880,78L3360,39L3840,0L4320,104L4800,39L5280,39L5760,78L6240,26L6720,65L7200,78L7680,78L8160,104L8640,91L9120,13L9600,78L10080,65L10560,104L11040,104L11520,13L11520,130L11040,130L10560,130L10080,130L9600,130L9120,130L8640,130L8160,130L7680,130L7200,130L6720,130L6240,130L5760,130L5280,130L4800,130L4320,130L3840,130L3360,130L2880,130L2400,130L1920,130L1440,130L960,130L480,130L0,130Z"
-          ></path>
-        </svg>
-        <!-- <svg-icon class="wave-separator-bottom" :iconPath="Icons.waveBottom" viewBox="0 0 500 150"/> -->
-      </div>
-    </div>
-    <div id="contact" class="home-contact">
-      <DeferredContent>
-        <ContactSection />
-      </DeferredContent>
-    </div>
-    <Toast />
   </div>
 </template>
 <script setup>
-import InputText from "primevue/inputtext";
-import Slider from "primevue/slider";
 import { computed, onMounted, ref } from "vue";
-import Dropdown from "primevue/dropdown";
-import Textarea from "primevue/textarea";
-import Button from "primevue/button";
-import ServiceSection from "../components/ServiceSection.vue";
-import ContactSection from "../components/ContactSection.vue";
-import DeferredContent from "primevue/deferredcontent";
-import Toast from "primevue/toast";
-import axios from "axios";
-import { useToast } from "primevue/usetoast";
+import SvgIcon from "../components/SvgIcon.vue";
+import Icons from "../assets/modules/Icons";
+import router from "../router";
 
-const toast = useToast();
-
-let budget = ref(1000);
-let terms = ref(["Imediat", "3 luni", "6 luni", "9 luni", "1 an"]);
 let textLoaded = ref(false);
-let textAreaValue = ref("");
-let formValues = {
-  personalInfo: [
-    {
-      label: "Nume",
-      value: "",
-    },
-    {
-      label: "Companie (optional)",
-      value: "",
-    },
-    {
-      label: "Email",
-      value: "",
-    },
-    {
-      label: "Telefon",
-      value: "",
-    },
-  ],
-  projectInfo: [
-    {
-      label: "Localitate",
-      value: "",
-      class: "",
-    },
-    {
-      label: "Judet",
-      value: "",
-      class: "",
-    },
-    {
-      label: "Adresa instalare",
-      value: "",
-      class: "address-input",
-    },
-  ],
-  selectedTerm: "",
-};
 
 let isMobile = computed(() => {
   if (
@@ -209,198 +59,153 @@ onMounted(() => {
   }, 1000);
 });
 
-function isFormDataEmpty(formData) {
-  const entries = formData.entries();
-  return entries.next().done; // Returns true if there are no entries
+function goToSection(path) {
+  router.push(path);
 }
 
-function sendMail() {
-  let form = new FormData();
-
-  if (
-    formValues.personalInfo[0].value != "" &&
-    formValues.personalInfo[1].value != "" &&
-    formValues.personalInfo[2].value != "" &&
-    formValues.personalInfo[3].value != ""
-  ) {
-    form.append(
-      "first_name",
-      formValues.personalInfo[0].value.replace(/(<([^>]+)>)/gi, "")
-    );
-    form.append(
-      "email",
-      formValues.personalInfo[2].value.replace(/(<([^>]+)>)/gi, "")
-    );
-    form.append(
-      "phone_number",
-      formValues.personalInfo[3].value.replace(/(<([^>]+)>)/gi, "")
-    );
-    form.append(
-      "address",
-      formValues.projectInfo[0].value.replace(/(<([^>]+)>)/gi, "")
-    );
-  } else {
-    toast.add({
-      severity: "error",
-      summary: "Eroare",
-      detail: "Va rugam completati datele personale",
-      life: 3000,
-    });
-  }
-
-  if (
-    formValues.projectInfo[1].value != "" &&
-    formValues.projectInfo[2].value != ""
-  ) {
-    form.append(
-      "city",
-      formValues.projectInfo[1].value.replace(/(<([^>]+)>)/gi, "")
-    );
-    form.append(
-      "state",
-      formValues.projectInfo[2].value.replace(/(<([^>]+)>)/gi, "")
-    );
-  } else {
-    toast.add({
-      severity: "error",
-      summary: "Eroare",
-      detail: "Va un judet si o localitate",
-      life: 3000,
-    });
-  }
-
-  if (
-    formValues.projectInfo[0].value != "" &&
-    formValues.projectInfo[1].value != ""
-  ) {
-    form.append(
-      "address",
-      formValues.projectInfo[0].value.replace(/(<([^>]+)>)/gi, "")
-    );
-  } else {
-    toast.add({
-      severity: "error",
-      summary: "Eroare",
-      detail: "Va rugam introduceti o adresa",
-      life: 3000,
-    });
-  }
-
-  if (formValues.selectedTerm != "") {
-    form.append(
-      "project_term",
-      formValues.selectedTerm.replace(/(<([^>]+)>)/gi, "")
-    );
-  } else {
-    toast.add({
-      severity: "error",
-      summary: "Eroare",
-      detail: "Va rugam selectati un termen",
-      life: 3000,
-    });
-  }
-
-  console.log(form);
-  if (!isFormDataEmpty(form)) {
-    form.append("project_budget", budget.value);
-    form.append(
-      "project_description",
-      textAreaValue.value.replace(/(<([^>]+)>)/gi, "")
-    );
-    // axios
-    //   .post("https://fotovoltaiceongrid.ro/wp-admin/admin-ajax.php", form, {
-    //     headers: {
-    //       "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     toast.add({ severity: 'error', summary: 'Erroare', detail: 'Ceva nu a mers, va rugam mai incercati odata.', life: 3000 });
-    //     console.error(error);
-    //   });
-    toast.add({
-      severity: "success",
-      summary: "Mail trimis",
-      detail: "Mail-ul a fost trimis cu succes!",
-      life: 3000,
-    });
-  } else {
-    toast.add({
-      severity: "error",
-      summary: "Eroare",
-      detail: "Va rugam completati datele",
-      life: 3000,
-    });
-  }
-}
 </script>
 <style>
-@import "../assets/css/home-form.css";
-@import "../assets/css/home-image.css";
-
-.separator-container {
-  width: 100%;
-  margin-top: -10px;
-  filter: drop-shadow(0px 3px 2px rgba(0, 0, 0, 0.5));
-  position: relative;
-  z-index: -1;
-}
-.separator-container-bottom {
-  width: 100%;
-  margin-bottom: -10px;
-  filter: drop-shadow(0px -3px 2px rgba(0, 0, 0, 0.5));
-  position: relative;
-  z-index: 3;
-}
-
-.wave-separator {
-  width: 100%;
-  fill: var(--accent);
-}
-
-.wave-separator-bottom {
-  width: 100%;
-  fill: var(--accent);
-}
-
-.service-type {
-  position: relative;
-}
-
-.service-bg {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  object-fit: cover;
-  opacity: 0.2;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
-
-.home-form-wrapper {
+.home-wrapper {
   height: 100vh;
   display: flex;
   flex-flow: row wrap;
   align-content: center;
   justify-content: space-between;
-  padding: 10rem;
+  padding: 0rem 10rem;
   background: linear-gradient(var(--dark), var(--accent));
 }
 
-.home-form {
-  width: 500px;
-  padding: 2rem;
-  box-sizing: content-box;
-  border-radius: var(--border-radius);
-  background: #fff;
-  box-shadow: var(--box-shadow);
-  color: var(--accent);
+.home-text{
+  width: 40%;
+}
+
+.home-text h2{
+  line-height: 10px;
+  text-shadow: 1px 1px 1px #000;
+}
+
+.home-text h1{
+  font-size: 3rem;
+  margin: 0;
+  line-height: 4rem;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.cta-container{
   display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+  margin-top: 3rem;
   gap: 2rem;
+}
+
+.cta-card{
+  width: 45%;
+  font-size: 1.5rem;
+  background: var(--accent);
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1rem 2rem;
+  position: relative;
+  cursor: pointer;
+}
+
+.cta-card-image{
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  left: 0.25rem;
+  top: 0.25rem;
+  fill: #dfdfdf;
+}
+
+.home-image-container {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  filter: drop-shadow(-5px 0px 5px rgba(0, 0, 0, 0.25));
+}
+
+.home-image {
+  width: 50vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  opacity: 0.9;
+  clip-path: polygon(25% 0%, 100% 0, 100% 100%, 25% 100%, 0% 50%);
+  filter: blur(3px);
+}
+
+.home-image-content {
+  position: relative;
+  z-index: 1;
+  right: -3rem;
+  text-shadow: 1px 1px 1px #000;
+  opacity: 0;
+  transition: all 0.8s ease-in-out;
+}
+
+.home-image-content-active {
+  right: 0;
+  opacity: 1;
+}
+
+.home-image-content h1 {
+  font-size: 4rem;
+  width: 30vw;
+  margin: 0;
+}
+
+.home-image-content h2 {
+  margin: 0.5rem 0;
+}
+
+@media screen and (max-width: 1366px) {
+  .home-image-container {
+    width: 35vw;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .home-image-container {
+    display: none;
+  }
+
+  .home-wrapper{
+    padding: 2rem 1rem;
+    box-sizing: content-box;
+  }
+
+  .home-text{
+    width: 100%;
+  }
+
+  .home-text h1{
+    font-size: 2rem;
+    line-height: initial;
+    text-align: center;
+  }
+  .home-text h2{
+    font-size: 2rem;
+    text-align: center;
+    line-height: initial;
+  }
+
+  .cta-container{
+    flex-flow: row wrap;
+  }
+
+  .cta-card{
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .cta-card-image{
+    width: 30px;
+    left: .5rem;
+  }
 }
 </style>

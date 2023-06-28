@@ -1,47 +1,27 @@
 <template>
-  <div class="contact-wrapper">
-    <h2 v-if="isMobile">Nu ezita sa ne contactezi</h2>
-    <div class="contact-top-shadow" v-if="!isMobile"></div>
-    <div class="contact-image-wrapper" v-if="!isMobile">
-      <div class="contact-image"></div>
-      <div class="contact-image-content">
-        <div class="contact-supratitle">Ai intrebari sau nelamuriri?</div>
-        <div class="contact-title">
-          Nu ezita sa ne contactezi pe social media, mail sau telefon!
+  <div id="contact" class="home-contact">
+    <div class="contact-wrapper">
+      <h2 v-if="isMobile">Nu ezita sa ne contactezi</h2>
+
+      <div class="contact-image-wrapper" v-if="!isMobile">
+        <div class="contact-image"></div>
+        <div class="contact-image-content">
+          <div class="contact-supratitle">Ai intrebari sau nelamuriri?</div>
+          <div class="contact-title">
+            Nu ezita sa ne contactezi pe social media, mail sau telefon!
+          </div>
         </div>
       </div>
-    </div>
-    <div class="contact-container">
-      <div class="contact-container-bg"></div>
-      <div class="contact-card-wrapper">
-        <div class="contact-card facebook-card">
-          <h2>Facebook</h2>
-          <svg-icon class="contact-svg" :iconPath="Icons.fbIcon" />
-          <div class="contact-card-text">FotovoltaiceOnGrid</div>
-        </div>
-        <div class="contact-card wapp-card">
-          <h2>WhatsApp</h2>
-          <svg-icon class="contact-svg" :iconPath="Icons.wappIcon" />
-          <div class="contact-card-text">07555 555 555</div>
-        </div>
-        <div class="contact-card mail-card">
-          <h2>Email</h2>
-          <svg-icon class="contact-svg" :iconPath="Icons.mailIcon" />
-          <div class="contact-card-text">office.mail@gmail.com</div>
-        </div>
-        <div class="contact-card phone-card">
-          <h2>Telefon</h2>
-          <svg-icon class="contact-svg" :iconPath="Icons.phoneIcon" />
-          <div class="contact-card-text">07555 555 555</div>
-        </div>
+      <div class="contact-container">
+        <div class="contact-container-bg"></div>
+        <contact-form />
       </div>
     </div>
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
-import Icons from "../assets/modules/Icons";
-import SvgIcon from "./SvgIcon.vue";
+import ContactForm from "../components/ContactForm.vue";
+import { computed, ref } from "vue";
 
 let isMobile = computed(() => {
   if (
@@ -60,15 +40,10 @@ let isMobile = computed(() => {
   width: 100%;
   height: 100vh;
   /* background: var(--accent); */
-  background: linear-gradient(var(--accent), var(--dark));
+  background: linear-gradient(var(--dark), var(--accent));
 }
 .home-contact {
   position: relative;
-}
-
-.home-contact h1 {
-  text-align: center;
-  color: white;
 }
 
 .contact-top-shadow {
@@ -89,12 +64,17 @@ let isMobile = computed(() => {
   top: 0;
   right: 0;
   filter: drop-shadow(-5px 0px 2px rgba(0, 0, 0, 0.5));
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .contact-container-bg {
   width: 100%;
   height: 100%;
-  background: linear-gradient(var(--accent), var(--dark));
+  position: absolute;
+  z-index: -1;
+  background: linear-gradient(var(--dark), var(--accent));
   clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 25% 100%, 0% 50%);
 }
 
@@ -133,7 +113,7 @@ let isMobile = computed(() => {
   color: white;
   font-size: 3rem;
 }
-
+/* 
 .contact-card-wrapper {
   width: 65%;
   display: flex;
@@ -186,13 +166,34 @@ let isMobile = computed(() => {
 .contact-card-text {
   width: 100%;
   text-align: center;
+} */
+
+
+@media screen and (max-width: 1366px) {
+  .contact-card-wrapper {
+    gap: 1rem;
+    top: 10%;
+  }
+  .contact-card {
+    width: 200px;
+    height: 250px;
+    padding-bottom: 1rem;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .contact-supratitle {
+    font-size: 1.5rem;
+  }
+  .contact-title {
+    font-size: 2.3rem;
+  }
 }
 
 
 @media screen and (max-width: 414px) and (orientation: portrait),
   screen and (max-width: 915px) and (orientation: landscape) {
   .home-contact {
-    height: 100vh !important;
+    
     display: flex;
   }
 
@@ -228,25 +229,6 @@ let isMobile = computed(() => {
   }
 }
 
-@media screen and (max-width: 1366px){
-  .contact-card-wrapper {
-    gap: 1rem;
-    top: 10%;
-  }
-  .contact-card{
-    width: 200px;
-    height: 250px;
-    padding-bottom: 1rem;
-  }
-}
-@media screen and (max-width: 1024px){
-  .contact-supratitle{
-    font-size: 1.5rem;
-  }
-  .contact-title{
-    font-size: 2.3rem;
-  }
-}
 
 @media screen and (max-width: 384px) and (orientation: portrait) {
   .contact-card {

@@ -1,7 +1,7 @@
 <template>
   <div id="app-container" v-if="store.hasLoaded">
     <!-- Mobile -->
-    <header class="mobile-header" v-if="isMobile">
+    <header class="mobile-header" v-if="isMobile && (store.noShow === false)">
       <svg-icon
         class="mobile-menu-button"
         :iconPath="Icons.menuIcon"
@@ -25,9 +25,15 @@
           />
         </div>
         <ul @click="sidebarVisible = false">
-          <a href="#home"><li @click="toggleNav" class="mobile-nav">Acasa</li></a>
-          <a href="#services"><li @click="toggleNav" class="mobile-nav">Servicii</li></a>
-          <a href="#contact"><li @click="toggleNav" class="mobile-nav">Contact</li></a>
+          <li>
+            <router-link to="/" class="mobile-nav">Acasa</router-link>
+          </li>
+          <li>
+            <router-link to="/servicii" class="mobile-nav">Informatii Servicii</router-link>
+          </li>
+          <li>
+            <router-link to="/contact" class="mobile-nav">Contact</router-link>
+          </li>
         </ul>
       </div>
     </Sidebar>
@@ -35,21 +41,15 @@
     <header
       class="desktop-header"
       :class="{ 'scrolled-header': isScrolled }"
-      v-if="!isMobile"
+      v-if="!isMobile && (store.noShow === false)"
     >
       <div class="header-background">
         <ul>
-          <a href="#home"
-            ><li class="nav-link active-nav-link" @click="toggleLink">
-              Acasa
-            </li></a
+          <router-link to="/" class="nav-link">Acasa</router-link>
+          <router-link to="/servicii" class="nav-link"
+            >Informatii Servicii</router-link
           >
-          <a href="#services"
-            ><li class="nav-link" @click="toggleLink">Servicii</li></a
-          >
-          <a href="#contact"
-            ><li class="nav-link" @click="toggleLink">Contact</li></a
-          >
+          <router-link to="/contact" class="nav-link">Contact</router-link>
         </ul>
       </div>
     </header>
@@ -57,7 +57,7 @@
     <div
       class="header-logo-container"
       :class="{ 'scrolled-logo': isScrolled }"
-      v-if="!isMobile"
+      v-if="!isMobile && (store.noShow === false)"
     >
       <svg-icon
         class="header-logo"
@@ -69,9 +69,37 @@
     <main>
       <router-view />
     </main>
+    <footer v-if="store.noShow === false">
+      <div class="footer-container">
+        <div class="footer-logo-container">
+          <svg-icon
+            class="footer-logo"
+            :iconPath="Icons.logoIcon"
+            :viewBox="`0 0 40 40`"
+          />
+        </div>
+        <div class="footer-title">Fotovoltaice On Grid</div>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque dolore facere quibusdam cum molestias, perferendis architecto ipsum, mollitia totam, iusto impedit aut quam consectetur harum laborum fugiat qui maxime. Possimus?</p>
+      </div>
+      <div class="footer-container">
+        <ul>
+          <li><svg-icon class="footer-icon" :iconPath="Icons.phoneIcon"/> 0755 555 555</li>
+          <li><svg-icon class="footer-icon" :iconPath="Icons.mailIcon"/> fotovoltaice@example.com</li>
+          <li><svg-icon class="footer-icon" :iconPath="Icons.fbIcon"/> facebook.com/fotovoltaice_on_grid</li>
+          <li><svg-icon class="footer-icon" :iconPath="Icons.wappIcon"/> 0755 555 555</li>  
+        </ul>
+      </div>
+      <div class="footer-container">
+        <ul>
+          <router-link to="/" class="footer-link">Acasa</router-link>
+          <router-link to="/servicii" class="footer-link">Informatii Servicii</router-link>
+          <router-link to="/contact" class="footer-link">Contact</router-link>
+        </ul>
+      </div>
+    </footer>
     <ScrollTop />
   </div>
-  <div class="preload" v-if="!store.hasLoaded">
+  <div class="preload" v-if="!store.hasLoaded && (store.noShow === false)">
     <div class="preload-logo-container">
       <svg-icon
         class="preload-logo"
@@ -79,7 +107,7 @@
         :viewBox="`0 0 40 40`"
       ></svg-icon>
     </div>
-    <div class="preload-logo-title" ref="preloadTitle">Avada Energy</div>
+    <div class="preload-logo-title" ref="preloadTitle">Fotovoltaice On Grid</div>
   </div>
 </template>
 <script setup>
@@ -150,6 +178,7 @@ function toggleNav(event) {
 @import "./assets/css/preload.css";
 @import "./assets/css/sidebar.css";
 @import "./assets/css/mobile-nav.css";
+@import "./assets/css/footer.css";
 
 .desktop-header {
   width: 50%;
@@ -226,8 +255,8 @@ function toggleNav(event) {
   color: var(--highlight);
 }
 
-.active-nav-link {
-  color: var(--highlight);
+.router-link-exact-active {
+  color: var(--highlight) !important;
 }
 
 .menu-bar {
@@ -292,12 +321,11 @@ function toggleNav(event) {
   color: var(--main);
 }
 
-
 @media screen and (max-width: 1366px) {
-  .header-logo-container{
+  .header-logo-container {
     top: 0.5rem;
   }
-  .desktop-header{
+  .desktop-header {
     margin: 0.5rem;
   }
 }
